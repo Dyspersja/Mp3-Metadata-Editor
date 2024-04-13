@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dyspersja.mp3metadataeditor.editor.EditorController">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="saveFileButton" mnemonicParsing="false" onAction="#saveFile" prefHeight="25.0" prefWidth="600.0" text="Save File" />
+            <TitledPane fx:id="ID3v2editorTitledPane" animated="false" collapsible="false" expanded="false" text="ID3v2">
+               <graphic>
+                  <Button fx:id="createID3v2Button" mnemonicParsing="false" onAction="#createID3v2" text="Create" />
+               </graphic>
+            </TitledPane>
+            <TitledPane fx:id="ID3v1editorTitledPane" animated="false" collapsible="false" expanded="false" layoutX="10.0" layoutY="10.0" text="ID3v1">
+               <graphic>
+                  <Button fx:id="createID3v1Button" mnemonicParsing="false" onAction="#createID3v1" text="Create" />
+               </graphic>
+            </TitledPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
