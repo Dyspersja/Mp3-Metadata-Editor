@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dyspersja.mp3metadataeditor.view.editor.ID3v2ContentController">
+   <children>
+      <Button fx:id="changeAlbumCoverButton" layoutX="21.0" layoutY="117.0" mnemonicParsing="false" onAction="#changeAlbumCover" text="change album cover" />
+      <ImageView fx:id="ID3v2AlbumCoverImageView" fitHeight="100.0" fitWidth="100.0" layoutX="33.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="ID3v2AlbumTextField" layoutX="172.0" layoutY="74.0" />
+      <TextField fx:id="ID3v2YearTextField" layoutX="172.0" layoutY="117.0" />
+      <TextField fx:id="ID3v2AlbumArtistTextField" layoutX="375.0" layoutY="74.0" />
+      <TextField fx:id="ID3v2TrackTextField" layoutX="375.0" layoutY="117.0" />
+      <TextField fx:id="ID3v2SongArtistTextField" layoutX="375.0" layoutY="30.0" />
+      <TextField fx:id="ID3v2TitleTextField" layoutX="172.0" layoutY="30.0" />
+      <Label layoutX="172.0" layoutY="13.0" text="Title" />
+      <Label layoutX="375.0" layoutY="13.0" text="SongArtist" />
+      <Label layoutX="375.0" layoutY="100.0" text="Track" />
+      <Label layoutX="172.0" layoutY="100.0" text="Year" />
+      <Label layoutX="172.0" layoutY="57.0" text="Album" />
+      <Label layoutX="375.0" layoutY="57.0" text="AlbumArtist" />
+   </children>
+</AnchorPane>

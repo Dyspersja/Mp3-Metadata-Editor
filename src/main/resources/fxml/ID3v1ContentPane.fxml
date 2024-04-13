@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dyspersja.mp3metadataeditor.view.editor.ID3v1ContentController">
+   <children>
+      <TextField fx:id="ID3v1TitleTextField" layoutX="59.0" layoutY="40.0" />
+      <TextField fx:id="ID3v1CommentTextField" layoutX="216.0" layoutY="86.0" />
+      <TextField fx:id="ID3v1ArtistTextField" layoutX="216.0" layoutY="40.0" />
+      <TextField fx:id="ID3v1YearTextField" layoutX="59.0" layoutY="86.0" />
+      <TextField fx:id="ID3v1AlbumTextField" layoutX="374.0" layoutY="40.0" />
+      <TextField fx:id="ID3v1TrackTextField" layoutX="374.0" layoutY="86.0" />
+      <Label layoutX="59.0" layoutY="23.0" text="Title" />
+      <Label layoutX="216.0" layoutY="23.0" text="Artist" />
+      <Label layoutX="374.0" layoutY="23.0" text="Album" />
+      <Label layoutX="59.0" layoutY="69.0" text="Year" />
+      <Label layoutX="216.0" layoutY="69.0" text="Comment" />
+      <Label layoutX="374.0" layoutY="69.0" text="Track" />
+   </children>
+</AnchorPane>
