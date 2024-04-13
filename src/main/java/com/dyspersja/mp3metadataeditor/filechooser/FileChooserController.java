@@ -1,7 +1,11 @@
 package com.dyspersja.mp3metadataeditor.filechooser;
 
+import com.dyspersja.mp3metadataeditor.editor.EditorController;
+import com.dyspersja.mp3metadataeditor.errorscreen.ErrorScreenProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -9,6 +13,7 @@ import javafx.stage.Stage;
 import lombok.Setter;
 
 import java.io.File;
+import java.io.IOException;
 
 public class FileChooserController {
 
@@ -19,6 +24,7 @@ public class FileChooserController {
     @Setter
     private Stage window;
 
+    @FXML
     public void choseFile(ActionEvent event) {
         File chosenFile = openFileChooser();
         if (chosenFile != null) {
@@ -34,6 +40,18 @@ public class FileChooserController {
     }
 
     private void openEditorWindow(File chosenFile) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/EditorScreen.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
 
+            EditorController controller = fxmlLoader.getController();
+            controller.setWindow(window);
+            controller.setFile(chosenFile);
+
+            window.setTitle("Mp3 Metadata Editor");
+            window.setScene(scene);
+        } catch (IllegalStateException | IOException e) {
+            ErrorScreenProvider.displayErrorWindow(e);
+        }
     }
 }
