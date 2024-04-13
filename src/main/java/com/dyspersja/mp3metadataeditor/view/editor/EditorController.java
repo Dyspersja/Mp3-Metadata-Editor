@@ -1,4 +1,4 @@
-package com.dyspersja.mp3metadataeditor.editor;
+package com.dyspersja.mp3metadataeditor.view.editor;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

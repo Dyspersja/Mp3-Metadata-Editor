@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="113.0" prefWidth="281.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dyspersja.mp3metadataeditor.filechooser.FileChooserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="113.0" prefWidth="281.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dyspersja.mp3metadataeditor.view.filechooser.FileChooserController">
    <children>
       <Button fx:id="choseFileButton" layoutX="109.0" layoutY="50.0" mnemonicParsing="false" onAction="#choseFile" text="chose file" />
       <Label layoutX="42.0" layoutY="25.0" text="Welcome to mp3 file metadata editor" />

@@ -1,7 +1,7 @@
-package com.dyspersja.mp3metadataeditor.filechooser;
+package com.dyspersja.mp3metadataeditor.view.filechooser;
 
-import com.dyspersja.mp3metadataeditor.editor.EditorController;
-import com.dyspersja.mp3metadataeditor.errorscreen.ErrorScreenProvider;
+import com.dyspersja.mp3metadataeditor.view.editor.EditorController;
+import com.dyspersja.mp3metadataeditor.view.errorscreen.ErrorScreenProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

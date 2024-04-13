@@ -1,4 +1,4 @@
-package com.dyspersja.mp3metadataeditor.errorscreen;
+package com.dyspersja.mp3metadataeditor.view.errorscreen;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
