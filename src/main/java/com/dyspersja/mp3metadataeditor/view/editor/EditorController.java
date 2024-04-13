@@ -35,8 +35,8 @@ public class EditorController {
     public void initialize() {
         var initializer = new EditorInitializer(ID3v2editorTitledPane, ID3v1editorTitledPane);
 
-        id3v1Controller = initializer.loadID3v1Controller();
-        id3v2Controller = initializer.loadID3v2Controller();
+        id3v1Controller = initializer.initializeID3v1Controller();
+        id3v2Controller = initializer.initializeID3v2Controller();
         id3v2Controller.setWindow(window);
     }
 

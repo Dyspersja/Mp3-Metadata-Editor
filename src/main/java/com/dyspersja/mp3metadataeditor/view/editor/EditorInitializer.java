@@ -11,34 +11,29 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class EditorInitializer {
 
+    private static final String ID3v2_FXML = "ID3v2ContentPane.fxml";
+    private static final String ID3v1_FXML = "ID3v1ContentPane.fxml";
 
     private final TitledPane ID3v2editorTitledPane;
     private final TitledPane ID3v1editorTitledPane;
 
-    protected ID3v2ContentController loadID3v2Controller() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ID3v2ContentPane.fxml"));
-            AnchorPane pane = fxmlLoader.load();
-
-            ID3v2ContentController id3v2ContentController = fxmlLoader.getController();
-
-            ID3v2editorTitledPane.setContent(pane);
-            return id3v2ContentController;
-        } catch (IllegalStateException | IOException e) {
-            ErrorScreenProvider.displayErrorWindow(e);
-            return null;
-        }
+    protected ID3v2ContentController initializeID3v2Controller() {
+        return initializeController(ID3v2_FXML, ID3v2editorTitledPane);
     }
 
-    protected ID3v1ContentController loadID3v1Controller() {
+    protected ID3v1ContentController initializeID3v1Controller() {
+        return initializeController(ID3v1_FXML, ID3v1editorTitledPane);
+    }
+
+    private <T> T initializeController(String fxmlFileName, TitledPane titledPane) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ID3v1ContentPane.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/" + fxmlFileName));
             AnchorPane pane = fxmlLoader.load();
 
-            ID3v1ContentController id3v1ContentController = fxmlLoader.getController();
+            T controller = fxmlLoader.getController();
 
-            ID3v1editorTitledPane.setContent(pane);
-            return id3v1ContentController;
+            titledPane.setContent(pane);
+            return controller;
         } catch (IllegalStateException | IOException e) {
             ErrorScreenProvider.displayErrorWindow(e);
             return null;
