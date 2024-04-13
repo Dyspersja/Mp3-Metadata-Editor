@@ -1,17 +1,13 @@
 package com.dyspersja.mp3metadataeditor.view.editor;
 
-import com.dyspersja.mp3metadataeditor.view.errorscreen.ErrorScreenProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.Setter;
 
 import java.io.File;
-import java.io.IOException;
 
 public class EditorController {
 
@@ -37,35 +33,11 @@ public class EditorController {
 
     @FXML
     public void initialize() {
-        loadID3v2Controller();
-        loadID3v1Controller();
-    }
+        var initializer = new EditorInitializer(ID3v2editorTitledPane, ID3v1editorTitledPane);
 
-    private void loadID3v2Controller() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ID3v2ContentPane.fxml"));
-            AnchorPane pane = fxmlLoader.load();
-
-            id3v2Controller = fxmlLoader.getController();
-            id3v2Controller.setWindow(window);
-
-            ID3v2editorTitledPane.setContent(pane);
-        } catch (IllegalStateException | IOException e) {
-            ErrorScreenProvider.displayErrorWindow(e);
-        }
-    }
-
-    private void loadID3v1Controller() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ID3v1ContentPane.fxml"));
-            AnchorPane pane = fxmlLoader.load();
-
-            id3v1Controller = fxmlLoader.getController();
-
-            ID3v1editorTitledPane.setContent(pane);
-        } catch (IllegalStateException | IOException e) {
-            ErrorScreenProvider.displayErrorWindow(e);
-        }
+        id3v1Controller = initializer.loadID3v1Controller();
+        id3v2Controller = initializer.loadID3v2Controller();
+        id3v2Controller.setWindow(window);
     }
 
     @FXML
