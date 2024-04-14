@@ -27,4 +27,16 @@ public class ID3v1ContentController {
         ID3v1TrackTextField.setText(String.valueOf(metadata.getTrack()));
         ID3v1YearTextField.setText(metadata.getYear());
     }
+
+    public ID3v1Metadata getMetadata() throws NumberFormatException {
+        return ID3v1Metadata.builder()
+                .isPresent(true)
+                .title(ID3v1TitleTextField.getText())
+                .artist(ID3v1ArtistTextField.getText())
+                .album(ID3v1AlbumTextField.getText())
+                .year(ID3v1YearTextField.getText())
+                .comment(ID3v1CommentTextField.getText())
+                .track(Integer.parseInt(ID3v1TrackTextField.getText()))
+                .build();
+    }
 }

@@ -1,14 +1,20 @@
 package com.dyspersja.mp3metadataeditor.view.editor;
 
 import com.dyspersja.mp3metadataeditor.mp3.Mp3File;
+import com.dyspersja.mp3metadataeditor.view.errorscreen.ErrorScreenProvider;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Setter;
 
 import java.io.File;
+import java.io.IOException;
 
 public class EditorController {
 
@@ -83,6 +89,32 @@ public class EditorController {
 
     @FXML
     void saveFile(ActionEvent event) {
+        try {
+            if (mp3File.isID3v2Present()) mp3File.setId3v2(id3v2Controller.getMetadata());
+            if (mp3File.isID3v1Present()) mp3File.setId3v1(id3v1Controller.getMetadata());
+        } catch (Exception e) {
+            displayIncorrectInputWindow();
+            return;
+        }
 
+        mp3File.saveFile();
+        Platform.exit();
+    }
+
+    private void displayIncorrectInputWindow(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/IncorrectInputScreen.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(fxmlLoader.load());
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Incorrect Input");
+            stage.setResizable(false);
+
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (IllegalStateException | IOException e) {
+            ErrorScreenProvider.displayFXMLErrorWindow(e);
+        }
     }
 }

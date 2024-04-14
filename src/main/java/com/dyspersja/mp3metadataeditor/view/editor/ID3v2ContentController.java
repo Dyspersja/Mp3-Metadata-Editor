@@ -89,4 +89,17 @@ public class ID3v2ContentController {
                 ? new Image(imageUrl.toExternalForm())
                 : null;
     }
+
+    public ID3v2Metadata getMetadata() {
+        return ID3v2Metadata.builder()
+                .isPresent(true)
+                .albumArtist(ID3v2AlbumArtistTextField.getText())
+                .album(ID3v2AlbumTextField.getText())
+                .songArtist(ID3v2SongArtistTextField.getText())
+                .title(ID3v2TitleTextField.getText())
+                .track(ID3v2TrackTextField.getText())
+                .year(ID3v2YearTextField.getText())
+                .albumCover(imageData)
+                .build();
+    }
 }
