@@ -1,4 +1,4 @@
-package com.dyspersja.mp3metadataeditor.metadata;
+package com.dyspersja.mp3metadataeditor.mp3.metadata;
 
 import com.dyspersja.mp3metadataeditor.view.errorscreen.ErrorScreenProvider;
 import lombok.*;

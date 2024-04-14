@@ -1,5 +1,7 @@
-package com.dyspersja.mp3metadataeditor.metadata;
+package com.dyspersja.mp3metadataeditor.mp3;
 
+import com.dyspersja.mp3metadataeditor.mp3.metadata.ID3v1Metadata;
+import com.dyspersja.mp3metadataeditor.mp3.metadata.ID3v2Metadata;
 import lombok.Getter;
 import lombok.Setter;
 

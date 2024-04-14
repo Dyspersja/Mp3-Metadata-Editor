@@ -1,6 +1,6 @@
 package com.dyspersja.mp3metadataeditor.view.editor;
 
-import com.dyspersja.mp3metadataeditor.metadata.Mp3File;
+import com.dyspersja.mp3metadataeditor.mp3.Mp3File;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
