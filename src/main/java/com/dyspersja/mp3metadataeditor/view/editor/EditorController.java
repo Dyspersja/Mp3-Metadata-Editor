@@ -1,5 +1,6 @@
 package com.dyspersja.mp3metadataeditor.view.editor;
 
+import com.dyspersja.mp3metadataeditor.metadata.Mp3File;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,6 +32,8 @@ public class EditorController {
     private ID3v2ContentController id3v2Controller;
     private ID3v1ContentController id3v1Controller;
 
+    private Mp3File mp3File;
+
     @FXML
     public void initialize() {
         var initializer = new EditorInitializer(ID3v2editorTitledPane, ID3v1editorTitledPane);
@@ -56,6 +59,6 @@ public class EditorController {
     }
 
     public void setFile(File file) {
-
+        mp3File = new Mp3File(file);
     }
 }
