@@ -29,6 +29,11 @@ public class ID3v1ContentController {
     }
 
     public ID3v1Metadata getMetadata() throws NumberFormatException {
+        String trackText = ID3v1TrackTextField.getText();
+        int trackNumber = !trackText.isBlank()
+                ? Integer.parseInt(trackText)
+                : -1;
+
         return ID3v1Metadata.builder()
                 .isPresent(true)
                 .title(ID3v1TitleTextField.getText())
@@ -36,7 +41,7 @@ public class ID3v1ContentController {
                 .album(ID3v1AlbumTextField.getText())
                 .year(ID3v1YearTextField.getText())
                 .comment(ID3v1CommentTextField.getText())
-                .track(Integer.parseInt(ID3v1TrackTextField.getText()))
+                .track(trackNumber)
                 .build();
     }
 }

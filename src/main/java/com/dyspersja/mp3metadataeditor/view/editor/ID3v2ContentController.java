@@ -43,6 +43,11 @@ public class ID3v2ContentController {
     private byte[] imageData;
 
     @FXML
+    public void initialize() {
+        ID3v2AlbumCoverImageView.setImage(loadMissingImage());
+    }
+
+    @FXML
     void changeAlbumCover(ActionEvent event) {
         File chosenFile = openFileChooser();
         if (chosenFile == null) return;
@@ -73,9 +78,7 @@ public class ID3v2ContentController {
         ID3v2YearTextField.setText(metadata.getYear());
 
         this.imageData = metadata.getAlbumCover();
-        ID3v2AlbumCoverImageView.setImage(imageData != null
-                ? getImageFromByteArray(imageData)
-                : loadMissingImage());
+        if (imageData != null) ID3v2AlbumCoverImageView.setImage(getImageFromByteArray(imageData));
     }
 
     private Image getImageFromByteArray(byte[] imageData) {
