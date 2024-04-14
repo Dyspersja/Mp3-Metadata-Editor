@@ -58,7 +58,7 @@ public class ID3v1Metadata {
             raf.seek(raf.length() - 128);
             raf.readFully(buffer);
         } catch (IOException e) {
-            ErrorScreenProvider.displayFileErrorWindow(e);
+            ErrorScreenProvider.displayFileReadErrorWindow(e);
         }
         return buffer;
     }

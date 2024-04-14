@@ -2,10 +2,13 @@ package com.dyspersja.mp3metadataeditor.mp3;
 
 import com.dyspersja.mp3metadataeditor.mp3.metadata.ID3v1Metadata;
 import com.dyspersja.mp3metadataeditor.mp3.metadata.ID3v2Metadata;
+import com.dyspersja.mp3metadataeditor.view.errorscreen.ErrorScreenProvider;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 @Getter
 @Setter
@@ -23,7 +26,18 @@ public class Mp3File {
     }
 
     public void saveFile() {
+        try (FileOutputStream fos = new FileOutputStream(file, false)) {
+            // Write ID3v2 metadata at the beginning of the file
+            if (id3v2.isPresent()) fos.write(id3v2.getMetadata());
 
+            // Write audio data
+            fos.write(audioData);
+
+            // Write ID3v1 metadata at the end of the file
+            if (id3v1.isPresent()) fos.write(id3v1.getMetadata());
+        } catch (IOException e) {
+            ErrorScreenProvider.displayFileWriteErrorWindow(e);
+        }
     }
 
     public void createID3v1() {

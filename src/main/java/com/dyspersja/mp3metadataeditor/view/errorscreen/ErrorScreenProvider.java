@@ -12,9 +12,16 @@ public class ErrorScreenProvider {
         displayErrorWindow(headerText, contentText);
     }
 
-    public static void displayFileErrorWindow(Exception e) {
+    public static void displayFileReadErrorWindow(Exception e) {
         String headerText = "Error Reading File";
         String contentText = "An error occurred while reading the file: " + e.getMessage();
+
+        displayErrorWindow(headerText, contentText);
+    }
+
+    public static void displayFileWriteErrorWindow(Exception e) {
+        String headerText = "Error Writing to a File";
+        String contentText = "An error occurred while writing to the file: " + e.getMessage();
 
         displayErrorWindow(headerText, contentText);
     }

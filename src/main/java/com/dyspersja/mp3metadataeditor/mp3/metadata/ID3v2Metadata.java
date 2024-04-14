@@ -51,7 +51,7 @@ public class ID3v2Metadata {
             List<byte[]> frames = parseMetadata(metadata);
             retrieveDataFromFrames(frames);
         } catch (IOException e) {
-            ErrorScreenProvider.displayFileErrorWindow(e);
+            ErrorScreenProvider.displayFileReadErrorWindow(e);
         }
     }
 

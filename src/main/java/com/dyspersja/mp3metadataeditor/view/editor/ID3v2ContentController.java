@@ -52,7 +52,7 @@ public class ID3v2ContentController {
             Image newAlbumCover = getImageFromByteArray(this.imageData);
             ID3v2AlbumCoverImageView.setImage(newAlbumCover);
         } catch (IOException e) {
-            ErrorScreenProvider.displayFileErrorWindow(e);
+            ErrorScreenProvider.displayFileReadErrorWindow(e);
         }
     }
 
