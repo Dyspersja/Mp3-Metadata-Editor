@@ -25,4 +25,20 @@ public class Mp3File {
     public void saveFile() {
 
     }
+
+    public void createID3v1() {
+        id3v1.setPresent(true);
+    }
+
+    public void createID3v2() {
+        id3v2.setPresent(true);
+    }
+
+    public boolean isID3v1Present() {
+        return id3v1.isPresent();
+    }
+
+    public boolean isID3v2Present() {
+        return id3v2.isPresent();
+    }
 }

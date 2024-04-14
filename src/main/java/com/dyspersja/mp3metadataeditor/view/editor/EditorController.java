@@ -45,20 +45,44 @@ public class EditorController {
 
     @FXML
     void createID3v1(ActionEvent event) {
-
+        mp3File.createID3v1();
+        activateID3v1TitledPane();
     }
 
     @FXML
     void createID3v2(ActionEvent event) {
+        mp3File.createID3v2();
+        activateID3v2TitledPane();
+    }
 
+    private void activateID3v1TitledPane(){
+        ID3v1editorTitledPane.setCollapsible(true);
+        ID3v1editorTitledPane.setExpanded(true);
+        createID3v1Button.setDisable(true);
+    }
+
+    private void activateID3v2TitledPane(){
+        ID3v2editorTitledPane.setCollapsible(true);
+        ID3v2editorTitledPane.setExpanded(true);
+        createID3v2Button.setDisable(true);
+    }
+
+    public void setFile(File file) {
+        mp3File = new Mp3File(file);
+
+        if (mp3File.isID3v2Present()) {
+            id3v2Controller.setInitialValues(mp3File.getId3v2());
+            activateID3v2TitledPane();
+        }
+
+        if (mp3File.isID3v1Present()) {
+            id3v1Controller.setInitialValues(mp3File.getId3v1());
+            activateID3v2TitledPane();
+        }
     }
 
     @FXML
     void saveFile(ActionEvent event) {
 
-    }
-
-    public void setFile(File file) {
-        mp3File = new Mp3File(file);
     }
 }

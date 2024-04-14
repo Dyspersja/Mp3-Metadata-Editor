@@ -144,7 +144,7 @@ public class ID3v2Metadata {
                 .orElse(-1);
 
         return index != -1
-                ? Arrays.copyOfRange(frameData, index, frameData.length - index)
+                ? Arrays.copyOfRange(frameData, index, frameData.length)
                 : null;
     }
 }
