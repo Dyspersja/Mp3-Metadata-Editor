@@ -6,8 +6,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0" prefWidth="290.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dyspersja.mp3metadataeditor.view.errorscreen.ModalScreenController">
    <children>
-      <Label layoutX="35.0" layoutY="47.0" text="There was an error while parsing metadata" />
-      <Label layoutX="108.0" layoutY="23.0" text="Incorrect Input" />
-      <Button fx:id="okButton" layoutX="131.0" layoutY="72.0" mnemonicParsing="false" onAction="#closeWindow" text="Ok" />
+      <Label layoutX="51.0" layoutY="47.0" text="The file has been saved successfully" />
+      <Label layoutX="125.0" layoutY="24.0" text="Success" />
+      <Button fx:id="okButton" layoutX="128.0" layoutY="72.0" mnemonicParsing="false" onAction="#closeWindow" text="Exit" />
    </children>
 </AnchorPane>

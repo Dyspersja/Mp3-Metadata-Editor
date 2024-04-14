@@ -4,15 +4,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import lombok.Setter;
 
-public class IncorrectInputScreenController {
+public class ModalScreenController {
 
     @FXML // fx:id="okButton"
     private Button okButton;
 
     @FXML
+    @Setter
+    Stage window;
+
+    @FXML
     void closeWindow(ActionEvent event) {
-        Stage stage = (Stage) okButton.getScene().getWindow();
-        stage.close();
+        window.close();
     }
 }

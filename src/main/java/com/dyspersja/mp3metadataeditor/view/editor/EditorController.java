@@ -2,6 +2,7 @@ package com.dyspersja.mp3metadataeditor.view.editor;
 
 import com.dyspersja.mp3metadataeditor.mp3.Mp3File;
 import com.dyspersja.mp3metadataeditor.view.errorscreen.ErrorScreenProvider;
+import com.dyspersja.mp3metadataeditor.view.errorscreen.ModalScreenController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -98,18 +99,31 @@ public class EditorController {
         }
 
         mp3File.saveFile();
+
+        displayExitWindow();
         Platform.exit();
     }
 
     private void displayIncorrectInputWindow(){
+        displayModalWindow("IncorrectInputScreen.fxml", "Incorrect Input");
+    }
+
+    private void displayExitWindow() {
+        displayModalWindow("ExitScreen.fxml", "Success");
+    }
+
+    private void displayModalWindow(String fxmlFileName, String title) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/IncorrectInputScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/" + fxmlFileName));
             Stage stage = new Stage();
             Scene scene = new Scene(fxmlLoader.load());
 
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Incorrect Input");
+            stage.setTitle(title);
             stage.setResizable(false);
+
+            ModalScreenController controller = fxmlLoader.getController();
+            controller.setWindow(stage);
 
             stage.setScene(scene);
             stage.showAndWait();
