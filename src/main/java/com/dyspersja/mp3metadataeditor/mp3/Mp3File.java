@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 @Getter
 @Setter
@@ -21,8 +22,28 @@ public class Mp3File {
     private File file;
 
     public Mp3File(File mp3File) {
+        this.file = mp3File;
+
         id3v1 = new ID3v1Metadata(mp3File);
         id3v2 = new ID3v2Metadata(mp3File);
+
+        retrieveAudioData();
+    }
+
+    private void retrieveAudioData() {
+        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
+            long fileLength = raf.length();
+            int offset = id3v2.getMetadataLength();
+
+            audioData = id3v1.isPresent()
+                    ? new byte[(int) (fileLength - offset) - 128]
+                    : new byte[(int) (fileLength - offset)];
+
+            raf.seek(offset);
+            raf.readFully(audioData);
+        } catch (IOException e) {
+            ErrorScreenProvider.displayFileReadErrorWindow(e);
+        }
     }
 
     public void saveFile() {

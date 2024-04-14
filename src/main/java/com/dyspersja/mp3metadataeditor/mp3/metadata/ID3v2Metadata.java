@@ -32,6 +32,7 @@ public class ID3v2Metadata {
     private byte[] albumCover;
 
     private boolean isPresent = false;
+    private int metadataLength;
 
     public ID3v2Metadata(File mp3File) {
         // Check if the file is large enough to contain ID3v2 metadata
@@ -44,7 +45,7 @@ public class ID3v2Metadata {
             this.isPresent = true;
 
             // Parse the ID3v2 metadata length
-            int metadataLength = parseMetadataLength(header);
+            metadataLength = parseMetadataLength(header);
 
             // Parse the metadata and retrieve the mp3 file data from it
             byte[] metadata = readMetadataBytes(mp3File, metadataLength);
