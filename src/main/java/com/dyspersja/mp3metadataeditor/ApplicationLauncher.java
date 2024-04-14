@@ -25,7 +25,7 @@ public class ApplicationLauncher extends Application {
             stage.setScene(scene);
             stage.show();
         } catch (IllegalStateException | IOException e) {
-            ErrorScreenProvider.displayErrorWindow(e);
+            ErrorScreenProvider.displayFXMLErrorWindow(e);
         }
     }
 

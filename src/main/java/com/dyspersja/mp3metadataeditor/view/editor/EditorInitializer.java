@@ -35,7 +35,7 @@ public class EditorInitializer {
             titledPane.setContent(pane);
             return controller;
         } catch (IllegalStateException | IOException e) {
-            ErrorScreenProvider.displayErrorWindow(e);
+            ErrorScreenProvider.displayFXMLErrorWindow(e);
             return null;
         }
     }

@@ -51,7 +51,7 @@ public class FileChooserController {
             window.setTitle("Mp3 Metadata Editor");
             window.setScene(scene);
         } catch (IllegalStateException | IOException e) {
-            ErrorScreenProvider.displayErrorWindow(e);
+            ErrorScreenProvider.displayFXMLErrorWindow(e);
         }
     }
 }
