@@ -1,17 +1,20 @@
 package com.dyspersja.mp3metadataeditor.view.editor;
 
 import com.dyspersja.mp3metadataeditor.mp3.metadata.ID3v2Metadata;
+import com.dyspersja.mp3metadataeditor.view.errorscreen.ErrorScreenProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Setter;
 
-import java.io.ByteArrayInputStream;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
 
 public class ID3v2ContentController {
 
@@ -37,9 +40,28 @@ public class ID3v2ContentController {
     @Setter
     private Stage window;
 
+    private byte[] imageData;
+
     @FXML
     void changeAlbumCover(ActionEvent event) {
+        File chosenFile = openFileChooser();
+        if (chosenFile == null) return;
 
+        try {
+            this.imageData = Files.readAllBytes(chosenFile.toPath());
+            Image newAlbumCover = getImageFromByteArray(this.imageData);
+            ID3v2AlbumCoverImageView.setImage(newAlbumCover);
+        } catch (IOException e) {
+            ErrorScreenProvider.displayFileErrorWindow(e);
+        }
+    }
+
+    private File openFileChooser() {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extensionFilter =
+                new FileChooser.ExtensionFilter("Image files (*.jpeg, *.jpg)", "*.jpeg", "*.jpg");
+        fileChooser.getExtensionFilters().add(extensionFilter);
+        return fileChooser.showOpenDialog(window);
     }
 
     public void setInitialValues(ID3v2Metadata metadata) {
@@ -50,7 +72,7 @@ public class ID3v2ContentController {
         ID3v2TrackTextField.setText(metadata.getTrack());
         ID3v2YearTextField.setText(metadata.getYear());
 
-        byte[] imageData = metadata.getAlbumCover();
+        this.imageData = metadata.getAlbumCover();
         ID3v2AlbumCoverImageView.setImage(imageData != null
                 ? getImageFromByteArray(imageData)
                 : loadMissingImage());
