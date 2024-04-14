@@ -75,4 +75,20 @@ public class ID3v1Metadata {
         this.comment = new String(metadata, COMMENT_OFFSET, COMMENT_LENGTH).trim();
         this.track = metadata[125] == 0 ? metadata[126] & 0xFF : -1;
     }
+
+    public byte[] getMetadata() {
+        byte[] metadata = new byte[128];
+        System.arraycopy("TAG".getBytes(), 0, metadata, TAG_OFFSET, TAG_LENGTH);
+        System.arraycopy(title.getBytes(), 0, metadata, TITLE_OFFSET, Math.min(TITLE_LENGTH, title.length()));
+        System.arraycopy(artist.getBytes(), 0, metadata, ARTIST_OFFSET, Math.min(ARTIST_LENGTH, artist.length()));
+        System.arraycopy(album.getBytes(), 0, metadata, ALBUM_OFFSET, Math.min(ALBUM_LENGTH, album.length()));
+        System.arraycopy(year.getBytes(), 0, metadata, YEAR_OFFSET, Math.min(YEAR_LENGTH, year.length()));
+        System.arraycopy(comment.getBytes(), 0, metadata, COMMENT_OFFSET, Math.min(FULL_COMMENT_LENGTH, comment.length()));
+        if (track > 0 && track < 256) {
+            metadata[125] = 0;
+            metadata[126] = (byte) (track & 0xFF);
+        }
+        metadata[127] = (byte) 0xFF;
+        return metadata;
+    }
 }

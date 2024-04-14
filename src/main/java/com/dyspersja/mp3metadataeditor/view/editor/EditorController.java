@@ -77,7 +77,7 @@ public class EditorController {
 
         if (mp3File.isID3v1Present()) {
             id3v1Controller.setInitialValues(mp3File.getId3v1());
-            activateID3v2TitledPane();
+            activateID3v1TitledPane();
         }
     }
 

@@ -6,12 +6,15 @@ import lombok.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+
+import static com.dyspersja.mp3metadataeditor.mp3.metadata.ID3v2FrameTag.*;
 
 @Getter
 @Setter
@@ -146,5 +149,78 @@ public class ID3v2Metadata {
         return index != -1
                 ? Arrays.copyOfRange(frameData, index, frameData.length)
                 : null;
+    }
+
+    public byte[] getMetadata() {
+        List<byte[]> frames = createFrames();
+
+        int paddingLength = 1024;
+        int metadataLength = getFramesLength(frames) + paddingLength;
+
+        ByteBuffer buffer = ByteBuffer.allocate(metadataLength + 10);
+
+        byte[] id3v2Header = {0x49, 0x44, 0x33, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+        buffer.put(id3v2Header);
+
+        for (byte[] frame : frames) buffer.put(frame);
+
+        byte[] padding = new byte[paddingLength];
+        buffer.put(padding);
+
+        buffer.flip();
+
+        byte[] metadata = new byte[buffer.remaining()];
+        buffer.get(metadata);
+
+        metadata[6] = (byte) ((metadataLength >>> 21) & 0x7F);
+        metadata[7] = (byte) ((metadataLength >>> 14) & 0x7F);
+        metadata[8] = (byte) ((metadataLength >>> 7) & 0x7F);
+        metadata[9] = (byte) (metadataLength & 0x7F);
+
+        return metadata;
+    }
+
+    private List<byte[]> createFrames() {
+        List<byte[]> frames = new ArrayList<>();
+
+        if (!albumArtist.isBlank()) frames.add(createFrame(ALBUM_ARTIST, albumArtist.getBytes()));
+        if (!album.isBlank()) frames.add(createFrame(ALBUM, album.getBytes()));
+        if (!songArtist.isBlank()) frames.add(createFrame(SONG_ARTIST, songArtist.getBytes()));
+        if (!title.isBlank()) frames.add(createFrame(TITLE, title.getBytes()));
+        if (!track.isBlank()) frames.add(createFrame(TRACK, track.getBytes()));
+        if (!year.isBlank()) frames.add(createFrame(YEAR, year.getBytes()));
+        if (albumCover != null) frames.add(createFrame(ALBUM_COVER, createImageFrameData()));
+
+        return frames;
+    }
+
+    private byte[] createFrame(ID3v2FrameTag frameTag, byte[] frameData) {
+        byte[] buffer = new byte[frameData.length + 11];
+        int frameLength = frameData.length + 1;
+        System.arraycopy(frameTag.getTag().getBytes(), 0, buffer, 0, 4);
+        buffer[4] = (byte) ((frameLength >>> 24) & 0xFF);
+        buffer[5] = (byte) ((frameLength >>> 16) & 0xFF);
+        buffer[6] = (byte) ((frameLength >>> 8) & 0xFF);
+        buffer[7] = (byte) (frameLength & 0xFF);
+        buffer[8] = 0;
+        buffer[9] = 0;
+        buffer[10] = 0;
+        System.arraycopy(frameData, 0, buffer, 11, frameData.length);
+        return buffer;
+    }
+
+    private byte[] createImageFrameData() {
+        byte[] imageHeader = {0x69, 0x6d, 0x61, 0x67, 0x65, 0x2f, 0x6a, 0x70, 0x65, 0x67,
+                0x00, 0x03, 0x74, 0x68, 0x75, 0x6d, 0x62, 0x6e, 0x61, 0x69, 0x6c, 0x00};
+
+        byte[] frameData = new byte[imageHeader.length + this.albumCover.length];
+        System.arraycopy(imageHeader, 0, frameData, 0, imageHeader.length);
+        System.arraycopy(this.albumCover, 0, frameData, imageHeader.length, this.albumCover.length);
+
+        return frameData;
+    }
+
+    private int getFramesLength(List<byte[]> frames) {
+        return frames.stream().mapToInt(frame -> frame.length).sum();
     }
 }
